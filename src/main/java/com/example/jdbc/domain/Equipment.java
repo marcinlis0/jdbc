@@ -6,9 +6,9 @@ public class Equipment {
 	private String model;
 	private double price;
 	
-	Equipment() {}
+	public Equipment() {}
 	
-	Equipment(int typeId, String model, double price) {
+	public Equipment(int typeId, String model, double price) {
 		this.typeId = typeId;
 		this.model = model;
 		this.price = price;

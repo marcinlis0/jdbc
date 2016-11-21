@@ -5,9 +5,9 @@ public class Type {
 	private String name;
 	private String purpose;
 	
-	Type(){	}
+	public Type(){	}
 	
-	Type(String name, String purpose){
+	public Type(String name, String purpose){
 		this.name = name;
 		this.purpose = purpose;
 	}
