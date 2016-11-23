@@ -12,12 +12,6 @@ public class Type {
 		this.purpose = purpose;
 	}
 	
-	public Type(long id, String name, String purpose){
-		this.id = id;
-		this.name = name;
-		this.purpose = purpose;
-	}
-	
 	public long getId() {
 		return id;
 	}

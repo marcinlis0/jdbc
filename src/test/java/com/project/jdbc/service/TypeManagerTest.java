@@ -12,20 +12,22 @@ import com.project.jdbc.service.TypeManager;
 
 public class TypeManagerTest {
 	TypeManager typeManager = new TypeManager();
-	
+
 	private final static String NAME = "Narty";
+	private final static String NEWNAME = "Snowboard";
 	private final static String PURPOSE = "Wąski stok";
-	
+	private final static String NEWPURPOSE = "Szeroki stok";
+
 	@Before
-	public void clear_database(){
+	public void clear_database() {
 		typeManager.clearType();
 	}
-	
+
 	@Test
-	public void checkConnection(){
+	public void checkConnection() {
 		assertNotNull(typeManager.getConnection());
 	}
-	
+
 	@Test
 	public void checkClear() {
 		Type type = new Type(NAME, PURPOSE);
@@ -33,7 +35,7 @@ public class TypeManagerTest {
 		typeManager.clearType();
 		assertEquals(0, typeManager.getAllTypes().size());
 	}
-	
+
 	@Test
 	public void checkClearByName() {
 		Type type = new Type(NAME, PURPOSE);
@@ -41,15 +43,15 @@ public class TypeManagerTest {
 		typeManager.clearTypeByName(NAME);
 		assertEquals(0, typeManager.getAllTypes().size());
 	}
-	
+
 	@Test
-	public void checkAdd(){
+	public void checkAdd() {
 		Type type = new Type(NAME, PURPOSE);
 		assertEquals(true, typeManager.addType(type));
 	}
-	
+
 	@Test
-	public void checkGetAllTypes(){
+	public void checkGetAllTypes() {
 		Type type = new Type(NAME, PURPOSE);
 		typeManager.addType(type);
 		List<Type> types = typeManager.getAllTypes();
@@ -57,18 +59,24 @@ public class TypeManagerTest {
 		assertEquals(NAME, typeRetrieved.getName());
 		assertEquals(PURPOSE, typeRetrieved.getPurpose());
 	}
-	
+
 	@Test
-	public void checkGetOneType(){
-		Type type = new Type(0, NAME, PURPOSE);
+	public void checkGetOneType() {
+		Type type = new Type(NAME, PURPOSE);
 		typeManager.addType(type);
-		Type typeRetrieved = typeManager.getOneType(0);
+		Type typeRetrieved = typeManager.getOneType(NAME);
 		assertEquals(NAME, typeRetrieved.getName());
 		assertEquals(PURPOSE, typeRetrieved.getPurpose());
 	}
-	
-	
-	
-	
+
+	@Test
+	public void checkUpdateType() {
+		Type type = new Type(NAME, PURPOSE);
+		typeManager.addType(type);
+		assertEquals(true, typeManager.updateType(NAME, NEWNAME, NEWPURPOSE));
+		Type typeRetrieved = typeManager.getOneType(NEWNAME);
+		assertEquals(NEWNAME, typeRetrieved.getName());
+		assertEquals(NEWPURPOSE, typeRetrieved.getPurpose());
+	}
 
 }
