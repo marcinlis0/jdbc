@@ -19,7 +19,7 @@ public class TypeManagerTest {
 	private final static String NEWPURPOSE = "Szeroki stok";
 
 	@Before
-	public void clear_database() {
+	public void clearDatabase() {
 		typeManager.clearType();
 		Type type = new Type(NAME, PURPOSE);
 		typeManager.addType(type);

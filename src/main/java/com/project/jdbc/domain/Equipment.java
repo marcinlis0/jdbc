@@ -8,11 +8,16 @@ public class Equipment {
 
 	public Equipment() {
 	}
-
-	public Equipment(int typeId, String model, double price) {
-		this.typeId = typeId;
+	
+	public Equipment(String model, double price) {
 		this.model = model;
 		this.price = price;
+	}
+
+	public Equipment(String model, double price, long typeId) {
+		this.model = model;
+		this.price = price;
+		this.typeId = typeId;
 	}
 
 	public long getId() {
