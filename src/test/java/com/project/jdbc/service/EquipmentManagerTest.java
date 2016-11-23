@@ -69,7 +69,21 @@ public class EquipmentManagerTest {
 		assertEquals(NEWMODEL, equipmentManager.getAllEquipment().get(0).getModel());
 	}
 
-	
+	@Test
+	public void checkUpdateEquipment() {
+		Type type = new Type(NAME, PURPOSE);
+		Type type1 = new Type(NEWNAME, PURPOSE);
+		typeManager.addType(type);
+		typeManager.addType(type1);
+
+		Equipment equipment = new Equipment(MODEL, PRICE, typeManager.getOneType(NAME).getId());
+		Equipment equipment1 = new Equipment(NEWMODEL, PRICE, typeManager.getOneType(NEWNAME).getId());
+		equipmentManager.addEquipment(equipment);
+		
+		assertEquals(true, equipmentManager.updateEquipment(equipmentManager.getAllEquipment().get(0).getId(), equipment1));
+		assertEquals(NEWMODEL, equipmentManager.getAllEquipment().get(0).getModel());
+		assertEquals(typeManager.getOneType(NEWNAME).getId(), equipmentManager.getAllEquipment().get(0).getTypeId());
+	}
 	
 	@Test
 	public void checkUpdateEquipmentType() {

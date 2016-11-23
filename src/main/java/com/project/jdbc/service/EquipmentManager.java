@@ -101,25 +101,30 @@ public class EquipmentManager {
 		}
 	}
 
-	public void updateEquipment(long id, Equipment newEquipment) {
+	public boolean updateEquipment(long id, Equipment newEquipment) {
+		int count = 0;
 		try {
 			updateEquipmentStmt.setString(1, newEquipment.getModel());
 			updateEquipmentStmt.setDouble(2, newEquipment.getPrice());
 			updateEquipmentStmt.setLong(3, newEquipment.getTypeId());
 			updateEquipmentStmt.setLong(4, id);
+			count = updateEquipmentStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return count == 1 ? true : false;
 	}
 
-	public void updateEquipmentType(long id, String typeName) {
+	public boolean updateEquipmentType(long id, String typeName) {
+		int count = 0;
 		try {
 			updateEquipmentTypeStmt.setString(1, typeName);
 			updateEquipmentTypeStmt.setLong(2, id);
-			updateEquipmentTypeStmt.executeUpdate();
+			count = updateEquipmentTypeStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return count == 1 ? true : false;
 	}
 
 	public List<Equipment> getAllEquipment() {
