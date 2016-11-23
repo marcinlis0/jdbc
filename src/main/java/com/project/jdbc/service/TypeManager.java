@@ -12,7 +12,7 @@ import java.util.List;
 import com.project.jdbc.domain.Type;
 
 public class TypeManager {
-	
+
 	private Connection connection;
 
 	private String url = "jdbc:hsqldb:hsql://localhost/workdb";
@@ -25,16 +25,15 @@ public class TypeManager {
 	private PreparedStatement deleteAllTypeStmt;
 	private PreparedStatement updateTypeStmt;
 	private PreparedStatement addTypeStmt;
-	
+
 	private Statement statement;
-	
+
 	public TypeManager() {
 		try {
 			connection = DriverManager.getConnection(url);
 			statement = connection.createStatement();
 
-			ResultSet rs = connection.getMetaData().getTables(null, null, null,
-					null);
+			ResultSet rs = connection.getMetaData().getTables(null, null, null, null);
 			boolean tableExists = false;
 			while (rs.next()) {
 				if ("Type".equalsIgnoreCase(rs.getString("TABLE_NAME"))) {
@@ -49,22 +48,19 @@ public class TypeManager {
 			getAllTypeStmt = connection.prepareStatement("SELECT * FROM Type");
 			getOneTypeByNameStmt = connection.prepareStatement("SELECT * FROM Type WHERE name=?");
 			deleteAllTypeStmt = connection.prepareStatement("DELETE FROM Type");
-			deleteOneTypeByNameStmt = connection.
-					prepareStatement("DELETE FROM Type WHERE name=?");
-			updateTypeStmt = connection.
-					prepareStatement("UPDATE Type SET name=?, purpose=? WHERE name=?");
-			addTypeStmt = connection
-					.prepareStatement("INSERT INTO Type (name, purpose) VALUES (?, ?)");
+			deleteOneTypeByNameStmt = connection.prepareStatement("DELETE FROM Type WHERE name=?");
+			updateTypeStmt = connection.prepareStatement("UPDATE Type SET name=?, purpose=? WHERE name=?");
+			addTypeStmt = connection.prepareStatement("INSERT INTO Type (name, purpose) VALUES (?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Connection getConnection() {
 		return connection;
 	}
-	
+
 	void clearType() {
 		try {
 			deleteAllTypeStmt.executeUpdate();
@@ -72,7 +68,7 @@ public class TypeManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	void clearTypeByName(String name) {
 		try {
 			deleteOneTypeByNameStmt.setString(1, name);
@@ -81,7 +77,7 @@ public class TypeManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public boolean addType(Type type) {
 		int count = 0;
 		try {
@@ -95,7 +91,7 @@ public class TypeManager {
 		}
 		return count == 1 ? true : false;
 	}
-	
+
 	public List<Type> getAllTypes() {
 		List<Type> types = new ArrayList<Type>();
 
@@ -115,13 +111,13 @@ public class TypeManager {
 		}
 		return types;
 	}
-	
+
 	public Type getOneType(String name) {
 		Type type = new Type();
 		try {
 			getOneTypeByNameStmt.setString(1, name);
 			ResultSet rs = getOneTypeByNameStmt.executeQuery();
-			while(rs.next()){
+			while (rs.next()) {
 				type.setId(rs.getLong("id"));
 				type.setName(rs.getString("name"));
 				type.setPurpose(rs.getString("purpose"));
@@ -131,12 +127,12 @@ public class TypeManager {
 		}
 		return type;
 	}
-	
-	public boolean updateType(String name, String newName, String newPurpose){
+
+	public boolean updateType(String name, Type newType) {
 		int count = 0;
 		try {
-			updateTypeStmt.setString(1, newName);
-			updateTypeStmt.setString(2, newPurpose);
+			updateTypeStmt.setString(1, newType.getName());
+			updateTypeStmt.setString(2, newType.getPurpose());
 			updateTypeStmt.setString(3, name);
 			count = updateTypeStmt.executeUpdate();
 		} catch (SQLException e) {

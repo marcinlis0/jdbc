@@ -21,6 +21,8 @@ public class TypeManagerTest {
 	@Before
 	public void clear_database() {
 		typeManager.clearType();
+		Type type = new Type(NAME, PURPOSE);
+		typeManager.addType(type);
 	}
 
 	@Test
@@ -30,30 +32,24 @@ public class TypeManagerTest {
 
 	@Test
 	public void checkClear() {
-		Type type = new Type(NAME, PURPOSE);
-		typeManager.addType(type);
 		typeManager.clearType();
 		assertEquals(0, typeManager.getAllTypes().size());
 	}
 
 	@Test
 	public void checkClearByName() {
-		Type type = new Type(NAME, PURPOSE);
-		typeManager.addType(type);
 		typeManager.clearTypeByName(NAME);
 		assertEquals(0, typeManager.getAllTypes().size());
 	}
 
 	@Test
 	public void checkAdd() {
-		Type type = new Type(NAME, PURPOSE);
+		Type type = new Type(NEWNAME, PURPOSE);
 		assertEquals(true, typeManager.addType(type));
 	}
 
 	@Test
 	public void checkGetAllTypes() {
-		Type type = new Type(NAME, PURPOSE);
-		typeManager.addType(type);
 		List<Type> types = typeManager.getAllTypes();
 		Type typeRetrieved = types.get(0);
 		assertEquals(NAME, typeRetrieved.getName());
@@ -62,8 +58,6 @@ public class TypeManagerTest {
 
 	@Test
 	public void checkGetOneType() {
-		Type type = new Type(NAME, PURPOSE);
-		typeManager.addType(type);
 		Type typeRetrieved = typeManager.getOneType(NAME);
 		assertEquals(NAME, typeRetrieved.getName());
 		assertEquals(PURPOSE, typeRetrieved.getPurpose());
@@ -71,9 +65,8 @@ public class TypeManagerTest {
 
 	@Test
 	public void checkUpdateType() {
-		Type type = new Type(NAME, PURPOSE);
-		typeManager.addType(type);
-		assertEquals(true, typeManager.updateType(NAME, NEWNAME, NEWPURPOSE));
+		Type newType = new Type(NEWNAME, NEWPURPOSE);
+		assertEquals(true, typeManager.updateType(NAME, newType));
 		Type typeRetrieved = typeManager.getOneType(NEWNAME);
 		assertEquals(NEWNAME, typeRetrieved.getName());
 		assertEquals(NEWPURPOSE, typeRetrieved.getPurpose());
