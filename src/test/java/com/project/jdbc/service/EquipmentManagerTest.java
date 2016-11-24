@@ -5,10 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.project.jdbc.domain.Equipment;
-import com.project.jdbc.service.EquipmentManager;
-import com.project.jdbc.domain.Type;
-import com.project.jdbc.service.TypeManager;
+import com.project.jdbc.crud.domain.Equipment;
+import com.project.jdbc.crud.domain.Type;
+import com.project.jdbc.crud.service.EquipmentManager;
+import com.project.jdbc.crud.service.TypeManager;
+
+
 
 public class EquipmentManagerTest {
 	TypeManager typeManager = new TypeManager();
@@ -123,6 +125,7 @@ public class EquipmentManagerTest {
 		equipmentManager.addEquipment(equipment1);
 		
 		assertEquals(MODEL, equipmentManager.getEquipmentsByType(NAME).get(0).getModel());
+		assertEquals(1, equipmentManager.getEquipmentsByType(NAME).size());
 	}
 	
 	@Test

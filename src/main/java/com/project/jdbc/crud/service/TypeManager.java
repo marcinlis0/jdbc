@@ -1,4 +1,4 @@
-package com.project.jdbc.service;
+package com.project.jdbc.crud.service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.project.jdbc.domain.Type;
+import com.project.jdbc.crud.domain.Type;
 
 public class TypeManager {
 
@@ -61,7 +61,7 @@ public class TypeManager {
 		return connection;
 	}
 
-	void clearType() {
+	public void clearType() {
 		try {
 			deleteAllTypeStmt.executeUpdate();
 		} catch (SQLException e) {
@@ -69,7 +69,7 @@ public class TypeManager {
 		}
 	}
 
-	void clearTypeByName(String name) {
+	public void clearTypeByName(String name) {
 		try {
 			deleteOneTypeByNameStmt.setString(1, name);
 			deleteOneTypeByNameStmt.executeUpdate();

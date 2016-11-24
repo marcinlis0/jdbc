@@ -1,4 +1,4 @@
-package com.project.jdbc.domain;
+package com.project.jdbc.crud.domain;
 
 public class Equipment {
 	private long id;

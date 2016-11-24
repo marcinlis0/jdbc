@@ -7,8 +7,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.project.jdbc.domain.Type;
-import com.project.jdbc.service.TypeManager;
+import com.project.jdbc.crud.domain.Type;
+import com.project.jdbc.crud.service.TypeManager;
 
 public class TypeManagerTest {
 	TypeManager typeManager = new TypeManager();
