@@ -17,12 +17,10 @@ public class EquipmentManagerTest {
 	private final static String NAME = "Narty";
 	private final static String NEWNAME = "Snowboard";
 	private final static String PURPOSE = "Wąski stok";
-	private final static String NEWPURPOSE = "Szeroki stok";
 
 	private final static String MODEL = "Voelkl Stroke";
 	private final static String NEWMODEL = "Voelkl Dash";
 	private final static double PRICE = 20.00;
-	private final static double NEWPRICE = 25.50;
 
 	@Before
 	public void clearDatabase() {
@@ -45,7 +43,9 @@ public class EquipmentManagerTest {
 
 	@Test
 	public void checkClear() {
-		Equipment equipment = new Equipment(MODEL, PRICE);
+		Type type = new Type(NAME, PURPOSE);
+		typeManager.addType(type);
+		Equipment equipment = new Equipment(MODEL, PRICE, typeManager.getOneType(NAME).getId());
 		equipmentManager.addEquipment(equipment);
 		equipmentManager.clearEquipments();
 		assertEquals(0, equipmentManager.getAllEquipment().size());
@@ -66,7 +66,7 @@ public class EquipmentManagerTest {
 		equipmentManager.deleteEquipmentsByType(NAME);
 
 		assertEquals(1, equipmentManager.getAllEquipment().size());
-		assertEquals(NEWMODEL, equipmentManager.getAllEquipment().get(0).getModel());
+		assertEquals(0, equipmentManager.getEquipmentsByType(NAME).size());
 	}
 
 	@Test

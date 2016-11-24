@@ -38,8 +38,11 @@ public class TypeManagerTest {
 
 	@Test
 	public void checkClearByName() {
+		Type type1 = new Type(NEWNAME, PURPOSE);
+		typeManager.addType(type1);
 		typeManager.clearTypeByName(NAME);
-		assertEquals(0, typeManager.getAllTypes().size());
+		assertEquals(1, typeManager.getAllTypes().size());
+		assertEquals(NEWNAME, typeManager.getOneType(NEWNAME).getName());
 	}
 
 	@Test
